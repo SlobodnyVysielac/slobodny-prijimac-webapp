@@ -9,9 +9,10 @@ class App extends Component {
         <header className="App-header">
           <a
 
-            
-            className="App-link" href="https://slobodnyvysielac.sk/zive-vysielanie/">
-            <img src={logo} width="300" alt="slobodny-vysielac-300xwhite"/>
+
+
+            lassName="App-link" href="https://slobodnyvysielac.sk/zive-vysielanie/">
+            <img src={logo} width="300" alt="slobodny-vysielac-300xwhite" />
           </a>
         </header>
       </div>
