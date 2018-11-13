@@ -10,6 +10,8 @@ class App extends Component {
           <a
 
 
+
+
             className="App-link" href="https://slobodnyvysielac.sk/zive-vysielanie/">
             <img src={logo} width="300" alt="slobodny-vysielac-300xwhite" />
           </a>
