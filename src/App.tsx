@@ -8,6 +8,8 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <a
+
+            
             className="App-link" href="https://slobodnyvysielac.sk/zive-vysielanie/">
             <img src={logo} width="300" alt="slobodny-vysielac-300xwhite"/>
           </a>
