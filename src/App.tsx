@@ -18,6 +18,20 @@ export default class App extends Component {
   render() {
     return (
       <div>
+        <h2>html5 audio</h2>
+        <span>{StreamOption.aacQ24}</span>
+        <br />
+        <audio src={streamToUrl.get(StreamOption.aacQ24)} controls />
+        <br />
+        <span>{StreamOption.aacQ56}</span>
+        <br />
+        <audio src={streamToUrl.get(StreamOption.aacQ56)} controls />
+        <br />
+        <span>{StreamOption.mp3Q128}</span>
+        <br />
+        <audio src={streamToUrl.get(StreamOption.mp3Q128)} controls />
+        <br />
+
         <h2>react-howler</h2>
         <ReactHowlerExample streamToUrl={streamToUrl} />
 
