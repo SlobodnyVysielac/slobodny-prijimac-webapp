@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ReactHowlerExample from './ReactHowlerExample';
+import ReactSoundExample from './ReactSoundExample';
 
 export enum StreamOption {
   aacQ24 = 'aacQ24',
@@ -19,6 +20,9 @@ export default class App extends Component {
       <div>
         <h2>react-howler</h2>
         <ReactHowlerExample streamToUrl={streamToUrl} />
+
+        <h2>react-sound</h2>
+        <ReactSoundExample streamToUrl={streamToUrl} />
       </div>
     );
   }
