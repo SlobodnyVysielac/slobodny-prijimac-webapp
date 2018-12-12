@@ -17,6 +17,7 @@ export interface MyPlayerProps {
   isPlaying: boolean;
   url: string | undefined;
   volume: number;
+  onMessage: (msg: string) => void
 }
 
 export enum StreamOption {
@@ -43,7 +44,7 @@ interface State {
 const APP_DEFAULT_STATE: State = {
   isMuted             : false,
   isPlaying           : false,
-  messages            : ['\ta', 'b'],
+  messages            : [],
   selectedPlayer      : Player.reactPlayer,
   selectedStreamOption: StreamOption.aacQ24,
   volume              : .5
@@ -60,6 +61,12 @@ export default class App extends Component<{}, State> {
     this.setState({
       ...APP_DEFAULT_STATE,
       selectedPlayer: player
+    });
+  };
+
+  private onMessage = (msg: string) => {
+    this.setState((prevState) => {
+      return {messages: prevState.messages.concat([msg])};
     });
   };
 
@@ -231,6 +238,7 @@ export default class App extends Component<{}, State> {
           isPlaying={isPlaying}
           url={streamToUrl.get(selectedStreamOption)}
           volume={volume}
+          onMessage={msg => this.onMessage(msg)}
         />);
 
       case Player.reactHowler:
@@ -239,6 +247,7 @@ export default class App extends Component<{}, State> {
           isPlaying={isPlaying}
           url={streamToUrl.get(selectedStreamOption)}
           volume={volume}
+          onMessage={msg => this.onMessage(msg)}
         />);
 
       case Player.reactPlayer:
@@ -247,6 +256,7 @@ export default class App extends Component<{}, State> {
           isPlaying={isPlaying}
           url={streamToUrl.get(selectedStreamOption)}
           volume={volume}
+          onMessage={msg => this.onMessage(msg)}
         />);
 
       case Player.reactSound:
@@ -255,6 +265,7 @@ export default class App extends Component<{}, State> {
           isPlaying={isPlaying}
           url={streamToUrl.get(selectedStreamOption)}
           volume={volume}
+          onMessage={msg => this.onMessage(msg)}
         />);
 
       default:
@@ -265,7 +276,9 @@ export default class App extends Component<{}, State> {
   private renderMessages() {
     return (
       <div>
-        <button onClick={() => this.setState({messages: []})}>Clear console</button>
+        <button onClick={() => this.setState({messages: []})}
+                style={{width: '8em', height: '8em'}}>Clear console
+        </button>
         <br/>
         <code>
           <small>
