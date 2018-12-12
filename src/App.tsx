@@ -68,19 +68,19 @@ export default class App extends Component<{}, State> {
         accept: 'text/html'
       }
     })
-      .then(response => {
+      .then((response: any) => {
         console.log(`SVARGA: response`, response);
 
         return response.text();
       })
-      .then(responseText => {
+      .then((responseText: string) => {
         // SVARGA remove console.log
         console.log(`SVARGA: `, responseText);
         const $ = cheerio.load(responseText);
         // SVARGA remove console.log
         console.log(`SVARGA: Page data: ${$('body').text()}`);
       })
-      .catch(e => {
+      .catch((e: any) => {
         const message = 'fetch error: ' + JSON.stringify(e);
         this.setState((state) => ({
           messages: state.messages.concat([message])
