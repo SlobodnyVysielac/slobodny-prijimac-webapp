@@ -1,3 +1,5 @@
+import cheerio from 'cheerio';
+import fetch from 'isomorphic-fetch';
 import React, {Component} from 'react';
 
 import ReactHowlerExample from './ReactHowlerExample';
@@ -54,6 +56,35 @@ export default class App extends Component<{}, State> {
   constructor(props: any) {
     super(props);
     this.state = APP_DEFAULT_STATE;
+  }
+
+  componentDidMount() {
+    const pageToVisit = 'https://svetovid.azurewebsites.net/sc/aacQ24/7.html?sid=1';
+
+    fetch(pageToVisit, {
+      method : 'GET',
+      headers: {
+        accept: 'text/html'
+      }
+    })
+      .then(response => {
+        console.log(`SVARGA: response`, response);
+
+        return response.text();
+      })
+      .then(responseText => {
+        // SVARGA remove console.log
+        console.log(`SVARGA: `, responseText);
+        const $ = cheerio.load(responseText);
+        // SVARGA remove console.log
+        console.log(`SVARGA: Page data: ${$('body').text()}`);
+      })
+      .catch(e => {
+        const message = 'fetch error: ' + JSON.stringify(e);
+        this.setState((state) => ({
+          messages: state.messages.concat([message])
+        }));
+      });
   }
 
   private onChangeSelectedPlayer = (player: Player) => {

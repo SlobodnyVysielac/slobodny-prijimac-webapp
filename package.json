@@ -7,6 +7,7 @@
     "eject": "react-scripts eject",
     "format": "prettier --write './src/**/*.{ts,tsx}'",
     "start": "react-scripts start",
+    "start:build": "http-server ./build -p 3000",
     "test": "react-scripts test"
   },
   "dependencies": {
@@ -14,6 +15,8 @@
     "@types/node": "10.12.5",
     "@types/react": "16.7.3",
     "@types/react-dom": "16.0.9",
+    "cheerio": "^1.0.0-rc.2",
+    "isomorphic-fetch": "^2.2.1",
     "react": "^16.6.1",
     "react-dom": "^16.6.1",
     "react-howler": "^3.7.3",
@@ -23,6 +26,9 @@
     "typescript": "3.1.6"
   },
   "devDependencies": {
+    "@types/cheerio": "^0.22.10",
+    "@types/isomorphic-fetch": "^0.0.34",
+    "http-server": "^0.11.1",
     "prettier": "^1.15.2"
   },
   "eslintConfig": {

@@ -1,51 +1,29 @@
 # Slobodny Prijimac Webapp
 
-- https://github.com/thangngoc89/react-howler
+## SHOUTcast Stream Status
+- `/played.html?sid=1`
+- `/7.html`  
+  - `/index` status
+  - `/currentsong` 1 song
+  - popis response https://medium.com/appseed-io/display-song-title-and-cover-by-utilizing-shoutcast-s-meta-data-fb00011cb086
+    - The first number, in our case 254, is the number of current listeners.
+    - The second number is the stream status. It is 1 when a source is connected and 0 when there is no source. If there is no source then no client connections occur.
+    - The third number, in our case 576, is the maximum number of listeners happened for this stream.
+    - The next number (3000) is the maximum number of client connections allowed in total o the server.
+    - The fifth number (252) represents the unique client connections across all active streams so if one client is on 2 streams, this will only be counted as one unique client.
+    - The sixth number (128) is the current bitrate and,
+    - at the end, is the current song’s artist-title.
 
----
 
+## Spomalenia AAC 24kbs
+- AAC 24 ma 2min spomalenie
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Crawler with request and cheerio
+http://www.netinstructions.com/how-to-make-a-simple-web-crawler-in-javascript-and-node-js/
 
-## Available Scripts
+## fetch docs 
+https://github.github.io/fetch/
 
-In the project directory, you can run:
+## PWA apple support 
+https://medium.com/@firt/progressive-web-apps-on-ios-are-here-d00430dee3a7
 
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
