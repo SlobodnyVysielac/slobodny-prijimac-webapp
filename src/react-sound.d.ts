@@ -10,7 +10,7 @@ declare module 'react-sound' {
   enum PlayStatus {
     PLAYING = 'PLAYING',
     STOPPED = 'STOPPED',
-    PAUSED = 'PAUSED'
+    PAUSED  = 'PAUSED'
   }
 
   export interface ReactSoundProps {
@@ -23,14 +23,14 @@ declare module 'react-sound' {
     autoLoad?: boolean;
     loop?: boolean;
     onError?: (errorCode: any, description: any) => void;
-    onLoading?: () => void;
-    onLoad?: () => void;
-    onPlaying?: () => void;
-    onPause?: () => void;
-    onResume?: () => void;
-    onStop?: () => void;
+    onLoading?: (o: {bytesLoaded: any, bytesTotal: any, duration: any}) => void;
+    onLoad?: (o: {loaded: boolean}) => void;
+    onPlaying?: (o: {position: any, duration: any}) => void;
+    onPause?: (o: {position: any, duration: any}) => void;
+    onResume?: (o: {position: any, duration: any}) => void;
+    onStop?: (o: {position: any, duration: any}) => void;
     onFinishedPlaying?: () => void;
-    onBufferChange?: () => void;
+    onBufferChange?: (hasChanged: boolean) => void;
   }
 
   interface MyReactSound extends React.ComponentClass<ReactSoundProps> {
