@@ -27,9 +27,9 @@ export enum StreamOption {
 }
 
 export const streamToUrl = new Map<StreamOption, string>([
-  [StreamOption.aacQ24, 'http://78.47.79.190:8006/stream'],
-  [StreamOption.aacQ56, 'http://78.47.79.190:8002/stream'],
-  [StreamOption.mp3Q128, 'http://78.47.79.190:8004/stream']
+  [StreamOption.aacQ24, 'http://78.47.79.190:8006/start'],
+  [StreamOption.aacQ56, 'http://78.47.79.190:8002/start'],
+  [StreamOption.mp3Q128, 'http://78.47.79.190:8004/start']
 ]);
 
 interface State {
@@ -45,7 +45,7 @@ const APP_DEFAULT_STATE: State = {
   isMuted             : false,
   isPlaying           : false,
   messages            : [],
-  selectedPlayer      : Player.reactPlayer,
+  selectedPlayer      : Player.reactSound,
   selectedStreamOption: StreamOption.aacQ24,
   volume              : .5
 };
