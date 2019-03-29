@@ -13,6 +13,13 @@
         - The sixth number (128) is the current bitrate and,
         - at the end, is the current song’s artist-title.
      - [http://78.47.79.190:8006/currentsong]() just current song
+     
+## WordPress 
+- [https://wordpress.org/plugins/events-manager/]() wp plugin Event Manager
+    - [http://wp-events-plugin.com/]()
+    - cal import [https://slobodnyvysielac.sk/events.ics]()
+    
+- [https://slobodnyvysielac.sk/feed/]() XML feed with news
 
 
 ## Spomalenia AAC 24kbs
