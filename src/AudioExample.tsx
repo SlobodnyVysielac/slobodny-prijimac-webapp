@@ -16,7 +16,7 @@ export class AudioExample extends Component<MyPlayerProps, State> {
 
   render() {
     const {isMuted, isPlaying, url, volume} = this.props;
-    const {audio}                           = this.state;
+    const {audio} = this.state;
 
     return (
       <div>

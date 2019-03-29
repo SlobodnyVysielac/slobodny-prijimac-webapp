@@ -10,7 +10,7 @@ declare module 'react-sound' {
   enum PlayStatus {
     PLAYING = 'PLAYING',
     STOPPED = 'STOPPED',
-    PAUSED  = 'PAUSED'
+    PAUSED = 'PAUSED'
   }
 
   export interface ReactSoundProps {

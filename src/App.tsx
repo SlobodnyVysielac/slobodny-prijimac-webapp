@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
-
 import ReactHowlerExample from './ReactHowlerExample';
+import {AudioExample} from './AudioExample';
 import ReactSoundExample from './ReactSoundExample';
 import {ReactPlayerExample} from './ReactPlayerExample';
-import {AudioExample} from './AudioExample';
 
 enum Player {
-  audio       = 'audio',
+  audio = 'audio',
   reactHowler = 'react-howler',
   reactPlayer = 'react-player',
-  reactSound  = 'react-sound'
+  reactSound = 'react-sound'
 }
 
 export interface MyPlayerProps {
@@ -21,8 +20,8 @@ export interface MyPlayerProps {
 }
 
 export enum StreamOption {
-  aacQ24  = 'aacQ24',
-  aacQ56  = 'aacQ56',
+  aacQ24 = 'aacQ24',
+  aacQ56 = 'aacQ56',
   mp3Q128 = 'mp3Q128'
 }
 
@@ -42,20 +41,15 @@ interface State {
 }
 
 const APP_DEFAULT_STATE: State = {
-  isMuted             : false,
-  isPlaying           : false,
-  messages            : [],
-  selectedPlayer      : Player.reactSound,
+  isMuted: false,
+  isPlaying: false,
+  messages: [],
+  selectedPlayer: Player.reactSound,
   selectedStreamOption: StreamOption.aacQ24,
-  volume              : .5
+  volume: .5
 };
 
 export default class App extends Component<{}, State> {
-
-  constructor(props: any) {
-    super(props);
-    this.state = APP_DEFAULT_STATE;
-  }
 
   private onChangeSelectedPlayer = (player: Player) => {
     this.setState({
@@ -91,6 +85,11 @@ export default class App extends Component<{}, State> {
         {this.renderMessages()}
       </div>
     );
+  }
+
+  constructor(props: any) {
+    super(props);
+    this.state = APP_DEFAULT_STATE;
   }
 
   private renderStateInfo() {

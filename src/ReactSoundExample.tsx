@@ -15,8 +15,8 @@ export default class ReactSoundExample extends Component<MyPlayerProps> {
     const {isMuted, isPlaying, url, volume} = nextProps;
 
     if (this.props.url !== url) {
-      const soundManager   = (window as any).soundManager;
-      const canPlay        = soundManager.canPlayURL(url);
+      const soundManager = (window as any).soundManager;
+      const canPlay = soundManager.canPlayURL(url);
       const canPlayMimeAAC = soundManager.canPlayMIME('audio/aac');
       const canPlayMimeMP3 = soundManager.canPlayMIME('audio/mpeg');
       this.props.onMessage(
