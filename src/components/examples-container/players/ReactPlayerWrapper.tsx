@@ -2,14 +2,14 @@ import * as React from 'react';
 import {Component} from 'react';
 import ReactPlayer from 'react-player';
 
-import {MyPlayerProps} from './App';
+import {PlayerProps} from '../ExamplesContainer';
 
-export class ReactPlayerExample extends Component<MyPlayerProps> {
-  componentDidUpdate(prevProps: Readonly<MyPlayerProps>, prevState: Readonly<{}>, snapshot?: any): void {
+export class ReactPlayerWrapper extends Component<PlayerProps> {
+  componentDidUpdate(prevProps: Readonly<PlayerProps>, prevState: Readonly<{}>, snapshot?: any): void {
     this.props.onMessage('componentDidUpdate');
   }
 
-  shouldComponentUpdate(nextProps: Readonly<MyPlayerProps>, nextState: Readonly<{}>, nextContext: any): boolean {
+  shouldComponentUpdate(nextProps: Readonly<PlayerProps>, nextState: Readonly<{}>, nextContext: any): boolean {
     const {isMuted, isPlaying, url, volume} = nextProps;
 
     if (this.props.url !== url) {

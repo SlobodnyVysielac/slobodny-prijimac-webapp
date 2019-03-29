@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import * as ReactHowler from 'react-howler';
 
-import {MyPlayerProps} from './App';
+import {PlayerProps} from '../ExamplesContainer';
 
-export default class ReactHowlerExample extends Component<MyPlayerProps> {
+export default class ReactHowlerWrapper extends Component<PlayerProps> {
   render() {
     const {isMuted, isPlaying, url, volume} = this.props;
 

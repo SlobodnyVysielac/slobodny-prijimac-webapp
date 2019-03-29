@@ -41,7 +41,7 @@ declare module 'react-sound' {
     };
   }
 
-  // const ReactSound: React.ComponentClass<ReactSoundProps>;
+  // const ReactSoundWrapper: React.ComponentClass<ReactSoundProps>;
   const ReactSound: MyReactSound;
 
   export default ReactSound;

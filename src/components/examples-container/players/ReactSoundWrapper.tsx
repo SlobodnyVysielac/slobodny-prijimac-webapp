@@ -2,14 +2,14 @@ import * as React from 'react';
 import {Component} from 'react';
 import ReactSound from 'react-sound';
 
-import {MyPlayerProps} from './App';
+import {PlayerProps} from '../ExamplesContainer';
 
-export default class ReactSoundExample extends Component<MyPlayerProps> {
-  componentDidUpdate(prevProps: Readonly<MyPlayerProps>, prevState: Readonly<{}>, snapshot?: any): void {
+export default class ReactSoundWrapper extends Component<PlayerProps> {
+  componentDidUpdate(prevProps: Readonly<PlayerProps>, prevState: Readonly<{}>, snapshot?: any): void {
     this.props.onMessage('componentDidUpdate');
   }
 
-  shouldComponentUpdate(nextProps: Readonly<MyPlayerProps>, nextState: Readonly<{}>, nextContext: any): boolean {
+  shouldComponentUpdate(nextProps: Readonly<PlayerProps>, nextState: Readonly<{}>, nextContext: any): boolean {
     const {isMuted, isPlaying, url, volume} = nextProps;
 
     if (this.props.url !== url) {

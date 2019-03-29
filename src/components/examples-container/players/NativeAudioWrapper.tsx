@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {MyPlayerProps} from './App';
+import {PlayerProps} from '../ExamplesContainer';
 
 interface State {
   audio: HTMLAudioElement | null;
 }
 
-export class AudioExample extends Component<MyPlayerProps, State> {
+export class NativeAudioWrapper extends Component<PlayerProps, State> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -46,7 +46,7 @@ export class AudioExample extends Component<MyPlayerProps, State> {
           {volume}
         </label>
         canPlayType: {audio ? audio.canPlayType(url !== undefined ? url : '') : 'audio is null'}
-        <br/>
+        <br />
         <button
           onClick={() => {
             if (audio) {
