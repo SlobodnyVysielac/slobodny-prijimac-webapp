@@ -4,7 +4,6 @@ import * as ReactHowler from 'react-howler';
 import {MyPlayerProps} from './App';
 
 export default class ReactHowlerExample extends Component<MyPlayerProps> {
-
   render() {
     const {isMuted, isPlaying, url, volume} = this.props;
 

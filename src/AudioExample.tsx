@@ -6,7 +6,6 @@ interface State {
 }
 
 export class AudioExample extends Component<MyPlayerProps, State> {
-
   constructor(props: any) {
     super(props);
     this.state = {
@@ -21,16 +20,14 @@ export class AudioExample extends Component<MyPlayerProps, State> {
     return (
       <div>
         <h1>AudioExample</h1>
-
         <audio
           src={url}
-          ref={(audio) => {
+          ref={audio => {
             if (this.state.audio === null) {
               this.setState({audio: audio});
             }
           }}
         />
-
         <label>
           Volume:
           <input
@@ -48,29 +45,31 @@ export class AudioExample extends Component<MyPlayerProps, State> {
           />
           {volume}
         </label>
-
         canPlayType: {audio ? audio.canPlayType(url !== undefined ? url : '') : 'audio is null'}
         <br/>
-
-        <button onClick={() => {
-          if (audio) {
-            audio.play();
-          }
-        }}>Play
+        <button
+          onClick={() => {
+            if (audio) {
+              audio.play();
+            }
+          }}>
+          Play
         </button>
-
-        <button onClick={() => {
-          if (audio) {
-            audio.muted = !audio.muted;
-          }
-        }}>Mute
+        <button
+          onClick={() => {
+            if (audio) {
+              audio.muted = !audio.muted;
+            }
+          }}>
+          Mute
         </button>
-
-        <button onClick={() => {
-          if (audio) {
-            audio.pause();
-          }
-        }}>Pause
+        <button
+          onClick={() => {
+            if (audio) {
+              audio.pause();
+            }
+          }}>
+          Pause
         </button>
       </div>
     );

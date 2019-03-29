@@ -5,7 +5,6 @@ import ReactPlayer from 'react-player';
 import {MyPlayerProps} from './App';
 
 export class ReactPlayerExample extends Component<MyPlayerProps> {
-
   componentDidUpdate(prevProps: Readonly<MyPlayerProps>, prevState: Readonly<{}>, snapshot?: any): void {
     this.props.onMessage('componentDidUpdate');
   }
@@ -19,10 +18,12 @@ export class ReactPlayerExample extends Component<MyPlayerProps> {
     }
 
     // because componentDidUpdate change state of parent component
-    return this.props.isMuted !== isMuted ||
+    return (
+      this.props.isMuted !== isMuted ||
       this.props.isPlaying !== isPlaying ||
       this.props.url !== url ||
-      this.props.volume !== volume;
+      this.props.volume !== volume
+    );
   }
 
   render() {
@@ -36,10 +37,8 @@ export class ReactPlayerExample extends Component<MyPlayerProps> {
           muted={isMuted}
           playing={isPlaying}
           volume={isMuted ? 0 : volume}
-
           style={{display: 'none'}}
           progressInterval={500}
-
           onReady={() => {
             onMessage('onReady');
           }}
@@ -49,10 +48,10 @@ export class ReactPlayerExample extends Component<MyPlayerProps> {
           onPlay={() => {
             onMessage('onPlay');
           }}
-          onProgress={(e) => {
+          onProgress={e => {
             onMessage('onProgress' + JSON.stringify(e));
           }}
-          onDuration={(e) => {
+          onDuration={e => {
             onMessage('onDuration' + JSON.stringify(e));
           }}
           onPause={() => {
@@ -64,7 +63,7 @@ export class ReactPlayerExample extends Component<MyPlayerProps> {
           onEnded={() => {
             onMessage('onEnded');
           }}
-          onError={(e) => {
+          onError={e => {
             onMessage('onError' + JSON.stringify(e));
           }}
           onEnablePIP={() => {
@@ -73,11 +72,9 @@ export class ReactPlayerExample extends Component<MyPlayerProps> {
           onDisablePIP={() => {
             onMessage('onDisablePIP');
           }}
-
           config={{file: {forceAudio: true}}}
         />
       </div>
     );
   }
-
 }

@@ -4,9 +4,7 @@ import ReactSound from 'react-sound';
 
 import {MyPlayerProps} from './App';
 
-
 export default class ReactSoundExample extends Component<MyPlayerProps> {
-
   componentDidUpdate(prevProps: Readonly<MyPlayerProps>, prevState: Readonly<{}>, snapshot?: any): void {
     this.props.onMessage('componentDidUpdate');
   }
@@ -20,14 +18,17 @@ export default class ReactSoundExample extends Component<MyPlayerProps> {
       const canPlayMimeAAC = soundManager.canPlayMIME('audio/aac');
       const canPlayMimeMP3 = soundManager.canPlayMIME('audio/mpeg');
       this.props.onMessage(
-        `shouldComponentUpdate canPlay=${canPlay}, url=${url}, canPlayMimeAAC=${canPlayMimeAAC}, canPlayMimeMP3=${canPlayMimeMP3}`);
+        `shouldComponentUpdate canPlay=${canPlay}, url=${url}, canPlayMimeAAC=${canPlayMimeAAC}, canPlayMimeMP3=${canPlayMimeMP3}`
+      );
     }
 
     // because componentDidUpdate change state of parent component
-    return this.props.isMuted !== isMuted ||
+    return (
+      this.props.isMuted !== isMuted ||
       this.props.isPlaying !== isPlaying ||
       this.props.url !== url ||
-      this.props.volume !== volume;
+      this.props.volume !== volume
+    );
   }
 
   render() {
@@ -66,7 +67,7 @@ export default class ReactSoundExample extends Component<MyPlayerProps> {
           onFinishedPlaying={() => {
             onMessage(`onFinishedPlaying`);
           }}
-          onBufferChange={(hasChanged) => {
+          onBufferChange={hasChanged => {
             onMessage(`onBufferChange hasChanged=${hasChanged}`);
           }}
         />

@@ -23,12 +23,12 @@ declare module 'react-sound' {
     autoLoad?: boolean;
     loop?: boolean;
     onError?: (errorCode: any, description: any) => void;
-    onLoading?: (o: {bytesLoaded: any, bytesTotal: any, duration: any}) => void;
+    onLoading?: (o: {bytesLoaded: any; bytesTotal: any; duration: any}) => void;
     onLoad?: (o: {loaded: boolean}) => void;
-    onPlaying?: (o: {position: any, duration: any}) => void;
-    onPause?: (o: {position: any, duration: any}) => void;
-    onResume?: (o: {position: any, duration: any}) => void;
-    onStop?: (o: {position: any, duration: any}) => void;
+    onPlaying?: (o: {position: any; duration: any}) => void;
+    onPause?: (o: {position: any; duration: any}) => void;
+    onResume?: (o: {position: any; duration: any}) => void;
+    onStop?: (o: {position: any; duration: any}) => void;
     onFinishedPlaying?: () => void;
     onBufferChange?: (hasChanged: boolean) => void;
   }

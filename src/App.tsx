@@ -3,9 +3,10 @@ import ReactHowlerExample from './ReactHowlerExample';
 import {AudioExample} from './AudioExample';
 import ReactSoundExample from './ReactSoundExample';
 import {ReactPlayerExample} from './ReactPlayerExample';
+import StreamData, {Stream} from './data/streams';
 
 enum Player {
-  audio = 'audio',
+  audio = 'native audio',
   reactHowler = 'react-howler',
   reactPlayer = 'react-player',
   reactSound = 'react-sound'
@@ -16,27 +17,15 @@ export interface MyPlayerProps {
   isPlaying: boolean;
   url: string | undefined;
   volume: number;
-  onMessage: (msg: string) => void
+  onMessage: (msg: string) => void;
 }
-
-export enum StreamOption {
-  aacQ24 = 'aacQ24',
-  aacQ56 = 'aacQ56',
-  mp3Q128 = 'mp3Q128'
-}
-
-export const streamToUrl = new Map<StreamOption, string>([
-  [StreamOption.aacQ24, 'http://78.47.79.190:8006/start'],
-  [StreamOption.aacQ56, 'http://78.47.79.190:8002/start'],
-  [StreamOption.mp3Q128, 'http://78.47.79.190:8004/start']
-]);
 
 interface State {
   isMuted: boolean;
   isPlaying: boolean;
   messages: string[];
-  selectedPlayer: Player
-  selectedStreamOption: StreamOption;
+  selectedPlayer: Player;
+  selectedStream: Stream;
   volume: number;
 }
 
@@ -45,11 +34,15 @@ const APP_DEFAULT_STATE: State = {
   isPlaying: false,
   messages: [],
   selectedPlayer: Player.reactSound,
-  selectedStreamOption: StreamOption.aacQ24,
-  volume: .5
+  selectedStream: StreamData[0],
+  volume: 0.5
 };
 
 export default class App extends Component<{}, State> {
+  constructor(props: any) {
+    super(props);
+    this.state = APP_DEFAULT_STATE;
+  }
 
   private onChangeSelectedPlayer = (player: Player) => {
     this.setState({
@@ -59,7 +52,7 @@ export default class App extends Component<{}, State> {
   };
 
   private onMessage = (msg: string) => {
-    this.setState((prevState) => {
+    this.setState(prevState => {
       return {messages: prevState.messages.concat([msg])};
     });
   };
@@ -70,13 +63,13 @@ export default class App extends Component<{}, State> {
         {this.renderStateInfo()}
         <hr/>
 
+        {this.renderHtml5Audio()}
+        <hr/>
+
         {this.renderControls()}
         <hr/>
 
         {this.renderPlayersRadios()}
-        <hr/>
-
-        {this.renderHtml5Audios()}
         <hr/>
 
         {this.renderSelectedPlayer()}
@@ -87,19 +80,16 @@ export default class App extends Component<{}, State> {
     );
   }
 
-  constructor(props: any) {
-    super(props);
-    this.state = APP_DEFAULT_STATE;
-  }
-
   private renderStateInfo() {
-    const {isMuted, isPlaying, selectedPlayer, selectedStreamOption, volume} = this.state;
+    const {isMuted, isPlaying, selectedPlayer, selectedStream, volume} = this.state;
 
     return (
       <code>
         <small>
-          Player: {selectedPlayer}<br/>
-          Url: {selectedStreamOption}: {streamToUrl.get(selectedStreamOption)}<br/>
+          Player: {selectedPlayer}
+          <br/>
+          Stream: {`${selectedStream.type} ${selectedStream.bps / 1000}: ${selectedStream.url}`}
+          <br/>
           isPlaying: {isPlaying + ''} <br/>
           isMuted: {isMuted + ''} <br/>
           volume: {volume + ''}
@@ -109,45 +99,29 @@ export default class App extends Component<{}, State> {
   }
 
   private renderControls() {
-    const {isMuted, isPlaying, selectedStreamOption, volume} = this.state;
+    const {isMuted, isPlaying, selectedStream, volume} = this.state;
 
     return (
       <div>
-
         <div>
-          <label>
-            <input
-              type="radio"
-              value={StreamOption.aacQ24}
-              checked={selectedStreamOption === StreamOption.aacQ24}
-              onChange={() => this.setState({selectedStreamOption: StreamOption.aacQ24})}
-            />
-            AAC 24 kbps
-          </label>
-          <label>
-            <input
-              type="radio"
-              value={StreamOption.aacQ56}
-              checked={selectedStreamOption === StreamOption.aacQ56}
-              onChange={() => this.setState({selectedStreamOption: StreamOption.aacQ56})}
-            />
-            AAC 56 kbps
-          </label>
-          <label>
-            <input
-              type="radio"
-              value={StreamOption.mp3Q128}
-              checked={selectedStreamOption === StreamOption.mp3Q128}
-              onChange={() => this.setState({selectedStreamOption: StreamOption.mp3Q128})}
-            />
-            MP3 128kbps
-          </label>
+          {StreamData.map((stream, index) => (
+            <label key={index}>
+              {/*// SVARGA set value*/}
+              <input
+                type="radio"
+                value={`${stream.type} ${stream.bps / 1000}`}
+                checked={stream === selectedStream}
+                onChange={() => this.setState({selectedStream: stream})}
+              />
+              {`${stream.type} ${stream.bps / 1000}`}&nbsp;kbps
+            </label>
+          ))}
         </div>
 
-        <button type="button" onClick={() => this.setState(prevState => ({isPlaying: !prevState.isPlaying}))}>
+        <button onClick={() => this.setState(prevState => ({isPlaying: !prevState.isPlaying}))}>
           {isPlaying ? 'Stop' : 'Play'}
         </button>
-        <button type="button" onClick={() => this.setState(prevState => ({isMuted: !prevState.isMuted}))}>
+        <button onClick={() => this.setState(prevState => ({isMuted: !prevState.isMuted}))}>
           {isMuted ? 'Unmute' : 'Mute'}
         </button>
         <label>
@@ -211,77 +185,77 @@ export default class App extends Component<{}, State> {
     );
   }
 
-  private renderHtml5Audios() {
-    return (
-      <div>
-        <div>html5 audio</div>
-        <span>{StreamOption.aacQ24}</span>
-        <audio src={streamToUrl.get(StreamOption.aacQ24)} controls/>
-        <br/>
-        <span>{StreamOption.aacQ56}</span>
-        <audio src={streamToUrl.get(StreamOption.aacQ56)} controls/>
-        <br/>
-        <span>{StreamOption.mp3Q128}</span>
-        <audio src={streamToUrl.get(StreamOption.mp3Q128)} controls/>
-      </div>
-    );
+  private renderHtml5Audio() {
+    const {selectedStream} = this.state;
+
+    return <audio src={`${selectedStream.url}/start`} controls/>;
   }
 
   private renderSelectedPlayer() {
-    const {isMuted, isPlaying, selectedPlayer, selectedStreamOption, volume} = this.state;
+    const {isMuted, isPlaying, selectedPlayer, selectedStream, volume} = this.state;
 
     switch (selectedPlayer) {
       case Player.audio:
-        return (<AudioExample
-          isMuted={isMuted}
-          isPlaying={isPlaying}
-          url={streamToUrl.get(selectedStreamOption)}
-          volume={volume}
-          onMessage={msg => this.onMessage(msg)}
-        />);
+        return (
+          <AudioExample
+            isMuted={isMuted}
+            isPlaying={isPlaying}
+            url={`${selectedStream.url}/start`}
+            volume={volume}
+            onMessage={msg => this.onMessage(msg)}
+          />
+        );
 
       case Player.reactHowler:
-        return (<ReactHowlerExample
-          isMuted={isMuted}
-          isPlaying={isPlaying}
-          url={streamToUrl.get(selectedStreamOption)}
-          volume={volume}
-          onMessage={msg => this.onMessage(msg)}
-        />);
+        return (
+          <ReactHowlerExample
+            isMuted={isMuted}
+            isPlaying={isPlaying}
+            url={`${selectedStream.url}/start`}
+            volume={volume}
+            onMessage={msg => this.onMessage(msg)}
+          />
+        );
 
       case Player.reactPlayer:
-        return (<ReactPlayerExample
-          isMuted={isMuted}
-          isPlaying={isPlaying}
-          url={streamToUrl.get(selectedStreamOption)}
-          volume={volume}
-          onMessage={msg => this.onMessage(msg)}
-        />);
+        return (
+          <ReactPlayerExample
+            isMuted={isMuted}
+            isPlaying={isPlaying}
+            url={`${selectedStream.url}/start`}
+            volume={volume}
+            onMessage={msg => this.onMessage(msg)}
+          />
+        );
 
       case Player.reactSound:
-        return (<ReactSoundExample
-          isMuted={isMuted}
-          isPlaying={isPlaying}
-          url={streamToUrl.get(selectedStreamOption)}
-          volume={volume}
-          onMessage={msg => this.onMessage(msg)}
-        />);
+        return (
+          <ReactSoundExample
+            isMuted={isMuted}
+            isPlaying={isPlaying}
+            url={`${selectedStream.url}/start`}
+            volume={volume}
+            onMessage={msg => this.onMessage(msg)}
+          />
+        );
 
       default:
-        return (<div>not implemented!</div>);
+        return <div>not implemented!</div>;
     }
   }
 
   private renderMessages() {
     return (
       <div>
-        <button onClick={() => this.setState({messages: []})}
-                style={{width: '8em', height: '8em'}}>Clear console
+        <button onClick={() => this.setState({messages: []})} style={{width: '8em', height: '8em'}}>
+          Clear console
         </button>
         <br/>
         <code>
           <small>
-            {this.state.messages.map((m, i) => <div key={i}>{m}</div>)}
+            {this.state.messages.map((m, i) => (
+              <div key={i}>{m}</div>
+            ))}
           </small>
         </code>
       </div>
