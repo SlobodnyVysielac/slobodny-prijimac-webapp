@@ -8,6 +8,10 @@ export enum ColorPallete {
   Black = '#0d0d0d'
 }
 
+export const Sizes = {
+  borderRadiusPx: 8
+};
+
 const GlobalStyle = createGlobalStyle`
   body {
     color: ${ColorPallete.White}
